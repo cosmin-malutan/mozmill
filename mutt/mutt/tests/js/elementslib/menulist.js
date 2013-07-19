@@ -51,3 +51,21 @@ var testChromeSelect = function () {
   menulist.select(null, 'Missouri');
   expect.equal(menulist.getNode().value, 'MO', "Value has been selected");
 }
+
+var testXULMenuList = function () {
+  controller.open(TEST_DATA[1]);
+  controller.waitForPageLoad();
+
+  var menulist =  new elementslib.ID(controller.window.document, "menulist");
+
+  controller.select(menulist, null, "Colorado");
+
+  mozmill.utils.waitFor( function() {
+      return menulist.getNode().label === "Colorado";
+  }, "Colorado has been selected");
+
+  controller.select(menulist, null, "Alaska");
+  mozmill.utils.waitFor( function() {
+      return menulist.getNode().label === "Alaska";
+  }, "Alaska has been selected");
+}
